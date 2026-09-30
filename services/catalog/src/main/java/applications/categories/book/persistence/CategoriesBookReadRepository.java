@@ -11,11 +11,15 @@ import java.util.UUID;
 public class CategoriesBookReadRepository
         implements PanacheRepositoryBase<CategoriesBook, UUID> {
 
-    public List<CategoriesBook> findAllActive(){
+    public List<CategoriesBook> findAllActive() {
         return list("active", true);
     }
 
-    public List<CategoriesBook> findAllByName(String name){
+    public List<CategoriesBook> findAllByName(String name) {
         return list("name", name);
+    }
+
+    public boolean existsBySlug(String slug) {
+        return count("slug", slug) > 0;
     }
 }

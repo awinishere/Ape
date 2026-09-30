@@ -1,1 +1,20 @@
-{ }
+quarkus:
+  datasource:
+    db-kind: postgresql
+    username: ${DB_USERNAME:example}
+    password: ${DB_PASSWORD:example}
+    jdbc:
+      url: ${DB_URL:jdbc:postgresql://localhost:5432/example}
+
+  hibernate-orm:
+    schema-management:
+      strategy: update
+
+ape:
+  security:
+    argon2:
+      iterations: ${ARGON2_ITERATIONS:3}
+      memory: ${ARGON2_MEMORY:65536}
+      parallelism: ${ARGON2_PARALLELISM:1}
+      salt-length: ${ARGON2_SALT_LENGTH:16}
+      hash-length: ${ARGON2_HASH_LENGTH:32}
