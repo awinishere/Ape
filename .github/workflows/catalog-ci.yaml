@@ -1,0 +1,42 @@
+name: Catalog CI
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'services/catalog/**'
+      - '.github/workflows/catalog-ci.yaml'
+
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'services/catalog/**'
+      - '.github/workflows/catalog-ci.yaml'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: services/catalog
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Build and Test
+        run: ./mvnw --batch-mode verify
